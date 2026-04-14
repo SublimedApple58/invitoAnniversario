@@ -1,9 +1,12 @@
 "use client";
 
+import type { Guest } from "@/db/schema";
+
 interface Invitation {
   id: number;
   code: string;
-  guestNames: string;
+  guests: Guest[];
+  gender: string;
   response: string | null;
   respondedAt: string | null;
   createdAt: string;
@@ -11,6 +14,10 @@ interface Invitation {
 
 interface GuestTableProps {
   invitations: Invitation[];
+}
+
+function formatNames(guests: Guest[]) {
+  return guests.map((g) => `${g.firstName} ${g.lastName}`).join(", ");
 }
 
 export default function GuestTable({ invitations }: GuestTableProps) {
@@ -52,7 +59,7 @@ export default function GuestTable({ invitations }: GuestTableProps) {
         </div>
         <div className="bg-green-500/5 border border-green-500/20 rounded-lg p-4 text-center">
           <p className="text-2xl font-serif text-green-400">{accepted}</p>
-          <p className="text-xs text-green-400/60 mt-1">Sì</p>
+          <p className="text-xs text-green-400/60 mt-1">Si</p>
         </div>
         <div className="bg-red-500/5 border border-red-500/20 rounded-lg p-4 text-center">
           <p className="text-2xl font-serif text-red-400">{declined}</p>
@@ -74,7 +81,7 @@ export default function GuestTable({ invitations }: GuestTableProps) {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-white/10 text-left">
-                <th className="pb-3 text-cream/60 font-normal">Ospite</th>
+                <th className="pb-3 text-cream/60 font-normal">Ospiti</th>
                 <th className="pb-3 text-cream/60 font-normal">Link</th>
                 <th className="pb-3 text-cream/60 font-normal">Stato</th>
                 <th className="pb-3 text-cream/60 font-normal">Data risposta</th>
@@ -83,7 +90,7 @@ export default function GuestTable({ invitations }: GuestTableProps) {
             <tbody>
               {invitations.map((inv) => (
                 <tr key={inv.id} className="border-b border-white/5">
-                  <td className="py-3 text-cream">{inv.guestNames}</td>
+                  <td className="py-3 text-cream">{formatNames(inv.guests)}</td>
                   <td className="py-3">
                     <code className="text-xs text-gold/70">/invite/{inv.code}</code>
                   </td>

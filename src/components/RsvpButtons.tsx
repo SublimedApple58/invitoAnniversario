@@ -6,9 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 interface RsvpButtonsProps {
   code: string;
   currentResponse: string | null;
+  isSingular: boolean;
 }
 
-export default function RsvpButtons({ code, currentResponse }: RsvpButtonsProps) {
+export default function RsvpButtons({ code, currentResponse, isSingular }: RsvpButtonsProps) {
   const [response, setResponse] = useState<string | null>(currentResponse);
   const [loading, setLoading] = useState(false);
 
@@ -41,16 +42,22 @@ export default function RsvpButtons({ code, currentResponse }: RsvpButtonsProps)
           >
             {response === "yes" ? (
               <>
-                <p className="font-serif text-xl text-gold mb-2">Grazie!</p>
-                <p className="text-ink-light text-sm">
-                  Non vediamo l&apos;ora di festeggiare insieme a voi.
+                <p className="font-body text-xl text-gold uppercase tracking-wider mb-2">Grazie!</p>
+                <p className="text-ink-light text-sm uppercase tracking-wider">
+                  {isSingular
+                    ? "Non vediamo l'ora di festeggiare insieme a te."
+                    : "Non vediamo l'ora di festeggiare insieme a voi."}
                 </p>
               </>
             ) : (
               <>
-                <p className="font-serif text-xl text-gold mb-2">Ci mancherai!</p>
-                <p className="text-ink-light text-sm">
-                  Grazie per averci fatto sapere. Vi penseremo.
+                <p className="font-body text-xl text-gold uppercase tracking-wider mb-2">
+                  {isSingular ? "Ci mancherai!" : "Ci mancherete!"}
+                </p>
+                <p className="text-ink-light text-sm uppercase tracking-wider">
+                  {isSingular
+                    ? "Grazie per averci fatto sapere. Ti penseremo."
+                    : "Grazie per averci fatto sapere. Vi penseremo."}
                 </p>
               </>
             )}
@@ -70,7 +77,7 @@ export default function RsvpButtons({ code, currentResponse }: RsvpButtonsProps)
                 bg-gold text-cream transition-all duration-300
                 hover:bg-gold-light disabled:opacity-50 cursor-pointer"
             >
-              Con gioia, accetto
+              {isSingular ? "Con gioia, accetto" : "Con gioia, accettiamo"}
             </button>
             <button
               onClick={() => handleRsvp("no")}
@@ -79,7 +86,7 @@ export default function RsvpButtons({ code, currentResponse }: RsvpButtonsProps)
                 border border-ink/20 text-ink-light transition-all duration-300
                 hover:border-gold/40 hover:text-ink disabled:opacity-50 cursor-pointer"
             >
-              Mi dispiace, non posso
+              {isSingular ? "Mi dispiace, non posso" : "Ci dispiace, non possiamo"}
             </button>
           </motion.div>
         )}

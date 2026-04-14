@@ -21,17 +21,27 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { guestNames } = await req.json();
+  const { guests, gender } = await req.json();
 
-  if (!guestNames || typeof guestNames !== "string") {
-    return NextResponse.json({ error: "guest_names is required" }, { status: 400 });
+  if (!Array.isArray(guests) || guests.length === 0) {
+    return NextResponse.json({ error: "guests array is required" }, { status: 400 });
+  }
+
+  for (const g of guests) {
+    if (!g.firstName?.trim() || !g.lastName?.trim()) {
+      return NextResponse.json({ error: "Each guest needs firstName and lastName" }, { status: 400 });
+    }
+  }
+
+  if (!["M", "F"].includes(gender)) {
+    return NextResponse.json({ error: "gender must be M or F" }, { status: 400 });
   }
 
   const code = nanoid(10);
 
   const [invitation] = await db
     .insert(invitations)
-    .values({ code, guestNames })
+    .values({ code, guests, gender })
     .returning();
 
   return NextResponse.json(invitation, { status: 201 });

@@ -4,14 +4,16 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import WaxSeal from "./WaxSeal";
 import InvitationCard from "./InvitationCard";
+import type { Guest } from "@/db/schema";
 
 interface EnvelopeProps {
-  guestNames: string;
+  guests: Guest[];
+  gender: string;
   code: string;
   currentResponse: string | null;
 }
 
-export default function Envelope({ guestNames, code, currentResponse }: EnvelopeProps) {
+export default function Envelope({ guests, gender, code, currentResponse }: EnvelopeProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -42,7 +44,7 @@ export default function Envelope({ guestNames, code, currentResponse }: Envelope
                   height: "50%",
                   clipPath: "polygon(0 0, 100% 0, 50% 100%)",
                   background: "linear-gradient(180deg, #ede7db 0%, #e8e0d2 100%)",
-                  borderBottom: "1px solid rgba(201, 168, 76, 0.2)",
+                  borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
                 }}
               />
 
@@ -52,16 +54,6 @@ export default function Envelope({ guestNames, code, currentResponse }: Envelope
                 style={{
                   background:
                     "linear-gradient(0deg, transparent 60%, rgba(0,0,0,0.03) 100%)",
-                }}
-              />
-
-              {/* Lace edge on the bottom */}
-              <div
-                className="absolute -bottom-1.5 left-2 right-2 h-3 opacity-30"
-                style={{
-                  backgroundImage: `repeating-conic-gradient(from 0deg, transparent 0deg 45deg, rgba(201, 168, 76, 0.3) 45deg 90deg)`,
-                  backgroundSize: "12px 12px",
-                  maskImage: "linear-gradient(to bottom, transparent, black)",
                 }}
               />
             </div>
@@ -89,7 +81,8 @@ export default function Envelope({ guestNames, code, currentResponse }: Envelope
             className="w-full flex justify-center"
           >
             <InvitationCard
-              guestNames={guestNames}
+              guests={guests}
+              gender={gender}
               code={code}
               currentResponse={currentResponse}
             />

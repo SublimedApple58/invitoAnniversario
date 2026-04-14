@@ -2,18 +2,34 @@
 
 import { motion } from "framer-motion";
 import RsvpButtons from "./RsvpButtons";
+import type { Guest } from "@/db/schema";
 
 interface InvitationCardProps {
-  guestNames: string;
+  guests: Guest[];
+  gender: string;
   code: string;
   currentResponse: string | null;
 }
 
+function getGreeting(gender: string, count: number) {
+  if (count === 1) return gender === "F" ? "Cara" : "Caro";
+  return gender === "F" ? "Care" : "Cari";
+}
+
+function formatGuestNames(guests: Guest[]) {
+  return guests.map((g) => `${g.firstName} ${g.lastName}`);
+}
+
 export default function InvitationCard({
-  guestNames,
+  guests,
+  gender,
   code,
   currentResponse,
 }: InvitationCardProps) {
+  const greeting = getGreeting(gender, guests.length);
+  const names = formatGuestNames(guests);
+  const isSingular = guests.length === 1;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -22,39 +38,40 @@ export default function InvitationCard({
       className="w-full max-w-sm mx-auto"
     >
       <div
-        className="relative bg-cream rounded-sm px-8 py-10 lace-border ornament-corner"
+        className="relative bg-cream rounded-sm px-8 py-10 lace-border"
         style={{
           boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2)",
         }}
       >
         {/* Top decorative line */}
         <div className="flex items-center justify-center mb-6">
-          <div className="h-px w-12 bg-gold/30" />
-          <span className="mx-3 text-gold text-xs tracking-[0.3em]">✦</span>
-          <div className="h-px w-12 bg-gold/30" />
+          <div className="h-px w-12 bg-ink/10" />
+          <span className="mx-3 text-ink/30 text-xs tracking-[0.3em]">&#10043;</span>
+          <div className="h-px w-12 bg-ink/10" />
         </div>
 
         {/* Guest greeting */}
-        <p className="font-body text-ink-light text-sm tracking-wider text-center mb-1">
-          {guestNames.split(" ").length > 2 ? "Cari" : "Caro/a"}
+        <p className="font-body text-ink-light text-sm tracking-wider text-center uppercase mb-1">
+          {greeting}
         </p>
-        <p className="font-serif text-ink text-2xl text-center mb-6 italic">
-          {guestNames}
-        </p>
+        {names.map((name, i) => (
+          <p key={i} className="font-serif text-ink text-2xl text-center italic">
+            {name}
+          </p>
+        ))}
 
         {/* Divider */}
-        <div className="h-px w-16 bg-gold/30 mx-auto mb-6" />
+        <div className="h-px w-16 bg-ink/10 mx-auto my-6" />
 
         {/* Invitation text */}
-        <p className="font-body text-ink text-center text-base leading-relaxed mb-2">
+        <p className="font-serif text-ink text-center text-lg italic mb-2">
           Serena &amp; Tiziano
         </p>
-        <p className="font-body text-ink-light text-center text-sm leading-relaxed mb-6">
-          vi invitano a festeggiare il loro
-          <br />
-          <span className="font-serif text-lg text-ink italic">
-            1° Anniversario di Matrimonio
-          </span>
+        <p className="font-body text-ink-light text-center text-sm leading-relaxed uppercase tracking-wider mb-1">
+          {isSingular ? "ti invitano a festeggiare" : "vi invitano a festeggiare"}
+        </p>
+        <p className="font-body text-ink-light text-center text-sm leading-relaxed uppercase tracking-wider mb-6">
+          il loro 1&#176; anniversario di matrimonio
         </p>
 
         {/* Date */}
@@ -62,14 +79,16 @@ export default function InvitationCard({
           <p className="font-body text-gold text-xs tracking-[0.4em] uppercase mb-1">
             Sabato
           </p>
-          <p className="font-serif text-ink text-3xl italic">30 Maggio</p>
-          <p className="font-serif text-ink text-lg">2026</p>
+          <p className="font-body text-ink text-2xl uppercase tracking-wider">
+            30 Maggio
+          </p>
+          <p className="font-body text-ink text-lg uppercase tracking-wider">2026</p>
         </div>
 
         {/* Time and Location */}
         <div className="text-center mb-4">
-          <p className="font-body text-ink text-sm">
-            ore <span className="font-serif text-lg italic">19:30</span>
+          <p className="font-body text-ink text-sm uppercase tracking-wider">
+            ore 19:30
           </p>
           <p className="font-body text-ink-light text-xs tracking-wider mt-2 uppercase">
             Luogo da confermare
@@ -110,23 +129,23 @@ export default function InvitationCard({
 
         {/* Divider before RSVP */}
         <div className="flex items-center justify-center my-6">
-          <div className="h-px w-8 bg-gold/30" />
-          <span className="mx-3 text-gold text-xs tracking-[0.3em]">✦</span>
-          <div className="h-px w-8 bg-gold/30" />
+          <div className="h-px w-8 bg-ink/10" />
+          <span className="mx-3 text-ink/30 text-xs tracking-[0.3em]">&#10043;</span>
+          <div className="h-px w-8 bg-ink/10" />
         </div>
 
         {/* RSVP section */}
         <p className="font-body text-ink-light text-xs text-center tracking-widest uppercase mb-1">
-          Conferma la tua presenza
+          {isSingular ? "Conferma la tua presenza" : "Confermate la vostra presenza"}
         </p>
 
-        <RsvpButtons code={code} currentResponse={currentResponse} />
+        <RsvpButtons code={code} currentResponse={currentResponse} isSingular={isSingular} />
 
         {/* Bottom decorative line */}
         <div className="flex items-center justify-center mt-8">
-          <div className="h-px w-12 bg-gold/30" />
-          <span className="mx-3 text-gold text-xs tracking-[0.3em]">✦</span>
-          <div className="h-px w-12 bg-gold/30" />
+          <div className="h-px w-12 bg-ink/10" />
+          <span className="mx-3 text-ink/30 text-xs tracking-[0.3em]">&#10043;</span>
+          <div className="h-px w-12 bg-ink/10" />
         </div>
       </div>
     </motion.div>
