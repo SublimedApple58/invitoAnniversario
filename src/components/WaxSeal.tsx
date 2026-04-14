@@ -13,134 +13,142 @@ export default function WaxSeal({ onClick }: { onClick: () => void }) {
     >
       <svg
         viewBox="0 0 200 200"
-        className="w-full h-full drop-shadow-[0_6px_20px_rgba(0,0,0,0.6)]"
+        className="w-full h-full"
+        style={{ filter: "drop-shadow(0 6px 16px rgba(0,0,0,0.5))" }}
       >
         <defs>
-          {/* Wax base gradient */}
-          <radialGradient id="waxBase" cx="40%" cy="35%" r="60%">
-            <stop offset="0%" stopColor="#dcc16e" />
-            <stop offset="30%" stopColor="#c9a84c" />
-            <stop offset="60%" stopColor="#b5923e" />
-            <stop offset="85%" stopColor="#9a7a32" />
-            <stop offset="100%" stopColor="#7d6228" />
+          {/* Main wax gradient */}
+          <radialGradient id="waxBase" cx="38%" cy="32%" r="65%">
+            <stop offset="0%" stopColor="#e0c872" />
+            <stop offset="25%" stopColor="#d4b85c" />
+            <stop offset="50%" stopColor="#c9a84c" />
+            <stop offset="75%" stopColor="#b09040" />
+            <stop offset="100%" stopColor="#8a7030" />
           </radialGradient>
 
-          {/* Highlight shimmer */}
-          <radialGradient id="waxHighlight" cx="35%" cy="30%" r="40%">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.35)" />
-            <stop offset="50%" stopColor="rgba(255,255,255,0.08)" />
+          {/* Specular highlight */}
+          <radialGradient id="highlight" cx="35%" cy="28%" r="30%">
+            <stop offset="0%" stopColor="rgba(255,255,255,0.4)" />
+            <stop offset="60%" stopColor="rgba(255,255,255,0.08)" />
             <stop offset="100%" stopColor="rgba(255,255,255,0)" />
           </radialGradient>
 
-          {/* Bottom shadow */}
-          <radialGradient id="waxShadow" cx="55%" cy="65%" r="50%">
-            <stop offset="0%" stopColor="rgba(0,0,0,0)" />
-            <stop offset="60%" stopColor="rgba(0,0,0,0.05)" />
+          {/* Edge shadow */}
+          <radialGradient id="edgeShadow" cx="50%" cy="50%" r="50%">
+            <stop offset="70%" stopColor="rgba(0,0,0,0)" />
+            <stop offset="90%" stopColor="rgba(0,0,0,0.12)" />
             <stop offset="100%" stopColor="rgba(0,0,0,0.25)" />
           </radialGradient>
 
-          {/* Emboss filter for monogram */}
-          <filter id="emboss" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur" />
-            <feOffset in="blur" dx="1" dy="1.5" result="shadowOuter" />
-            <feFlood floodColor="rgba(0,0,0,0.4)" result="shadowColor" />
-            <feComposite in="shadowColor" in2="shadowOuter" operator="in" result="shadow" />
-            <feOffset in="blur" dx="-0.5" dy="-0.8" result="lightOuter" />
-            <feFlood floodColor="rgba(255,255,255,0.5)" result="lightColor" />
-            <feComposite in="lightColor" in2="lightOuter" operator="in" result="light" />
-            <feMerge>
-              <feMergeNode in="shadow" />
-              <feMergeNode in="light" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-
-          {/* Noise texture */}
-          <filter id="waxNoise">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.7"
-              numOctaves="4"
-              seed="3"
-              result="noise"
-            />
-            <feColorMatrix
-              in="noise"
-              type="saturate"
-              values="0"
-              result="grayNoise"
-            />
-            <feBlend in="SourceGraphic" in2="grayNoise" mode="soft-light" />
-          </filter>
+          {/* Clip path for the wax shape */}
+          <clipPath id="waxClip">
+            <path d="M100,10 C118,8 134,13 148,22 C158,17 167,23 172,32
+               C182,40 189,54 191,70 C195,77 197,87 195,100
+               C197,112 195,123 189,133 C191,143 185,154 175,162
+               C169,172 157,180 145,184 C137,190 125,194 113,194
+               C101,196 89,194 79,190 C67,192 56,186 46,178
+               C36,172 28,162 22,150 C16,140 12,128 10,116
+               C6,106 6,94 8,82 C8,70 12,58 20,48
+               C24,38 32,28 44,22 C54,14 68,10 82,10 Z" />
+          </clipPath>
         </defs>
 
-        {/* Irregular wax shape — hand-poured look */}
+        {/* Wax body — irregular shape */}
         <path
-          d="M100,8 C120,6 138,12 152,22 C162,18 170,24 174,34
-             C184,42 190,56 192,72 C196,78 198,88 196,100
-             C198,112 196,124 190,134 C192,144 186,156 176,164
-             C170,174 158,182 146,186 C138,192 126,196 112,196
-             C100,198 88,196 78,192 C66,194 54,188 44,180
-             C34,174 26,164 20,152 C14,142 10,130 8,118
-             C4,108 4,96 6,84 C6,72 10,60 18,50
-             C22,40 30,30 42,24 C52,16 66,10 80,8 Z"
+          d="M100,10 C118,8 134,13 148,22 C158,17 167,23 172,32
+             C182,40 189,54 191,70 C195,77 197,87 195,100
+             C197,112 195,123 189,133 C191,143 185,154 175,162
+             C169,172 157,180 145,184 C137,190 125,194 113,194
+             C101,196 89,194 79,190 C67,192 56,186 46,178
+             C36,172 28,162 22,150 C16,140 12,128 10,116
+             C6,106 6,94 8,82 C8,70 12,58 20,48
+             C24,38 32,28 44,22 C54,14 68,10 82,10 Z"
           fill="url(#waxBase)"
-          filter="url(#waxNoise)"
         />
 
-        {/* Highlight layer */}
+        {/* Subtle surface variation — clipped to shape */}
+        <g clipPath="url(#waxClip)">
+          <ellipse cx="70" cy="70" rx="45" ry="40" fill="rgba(255,255,255,0.06)" />
+          <ellipse cx="140" cy="140" rx="35" ry="30" fill="rgba(0,0,0,0.06)" />
+          <ellipse cx="60" cy="150" rx="25" ry="20" fill="rgba(255,255,255,0.03)" />
+          <ellipse cx="150" cy="60" rx="20" ry="25" fill="rgba(0,0,0,0.04)" />
+        </g>
+
+        {/* Highlight */}
         <path
-          d="M100,8 C120,6 138,12 152,22 C162,18 170,24 174,34
-             C184,42 190,56 192,72 C196,78 198,88 196,100
-             C198,112 196,124 190,134 C192,144 186,156 176,164
-             C170,174 158,182 146,186 C138,192 126,196 112,196
-             C100,198 88,196 78,192 C66,194 54,188 44,180
-             C34,174 26,164 20,152 C14,142 10,130 8,118
-             C4,108 4,96 6,84 C6,72 10,60 18,50
-             C22,40 30,30 42,24 C52,16 66,10 80,8 Z"
-          fill="url(#waxHighlight)"
+          d="M100,10 C118,8 134,13 148,22 C158,17 167,23 172,32
+             C182,40 189,54 191,70 C195,77 197,87 195,100
+             C197,112 195,123 189,133 C191,143 185,154 175,162
+             C169,172 157,180 145,184 C137,190 125,194 113,194
+             C101,196 89,194 79,190 C67,192 56,186 46,178
+             C36,172 28,162 22,150 C16,140 12,128 10,116
+             C6,106 6,94 8,82 C8,70 12,58 20,48
+             C24,38 32,28 44,22 C54,14 68,10 82,10 Z"
+          fill="url(#highlight)"
         />
 
-        {/* Shadow layer */}
+        {/* Edge darkening */}
         <path
-          d="M100,8 C120,6 138,12 152,22 C162,18 170,24 174,34
-             C184,42 190,56 192,72 C196,78 198,88 196,100
-             C198,112 196,124 190,134 C192,144 186,156 176,164
-             C170,174 158,182 146,186 C138,192 126,196 112,196
-             C100,198 88,196 78,192 C66,194 54,188 44,180
-             C34,174 26,164 20,152 C14,142 10,130 8,118
-             C4,108 4,96 6,84 C6,72 10,60 18,50
-             C22,40 30,30 42,24 C52,16 66,10 80,8 Z"
-          fill="url(#waxShadow)"
+          d="M100,10 C118,8 134,13 148,22 C158,17 167,23 172,32
+             C182,40 189,54 191,70 C195,77 197,87 195,100
+             C197,112 195,123 189,133 C191,143 185,154 175,162
+             C169,172 157,180 145,184 C137,190 125,194 113,194
+             C101,196 89,194 79,190 C67,192 56,186 46,178
+             C36,172 28,162 22,150 C16,140 12,128 10,116
+             C6,106 6,94 8,82 C8,70 12,58 20,48
+             C24,38 32,28 44,22 C54,14 68,10 82,10 Z"
+          fill="url(#edgeShadow)"
         />
 
-        {/* Inner rim — pressed ring */}
+        {/* Pressed rim — outer */}
         <circle
-          cx="100"
-          cy="100"
-          r="62"
+          cx="100" cy="100" r="62"
           fill="none"
-          stroke="rgba(255,255,255,0.15)"
+          stroke="rgba(0,0,0,0.18)"
           strokeWidth="1.5"
         />
+        {/* Pressed rim — inner highlight */}
         <circle
-          cx="100"
-          cy="100"
-          r="60"
+          cx="100" cy="100" r="63"
           fill="none"
-          stroke="rgba(0,0,0,0.15)"
-          strokeWidth="1"
+          stroke="rgba(255,255,255,0.12)"
+          strokeWidth="0.8"
         />
 
-        {/* Monogram — embossed into the wax */}
+        {/* Inner pressed area — slightly darker */}
+        <circle
+          cx="100" cy="100" r="60"
+          fill="rgba(0,0,0,0.04)"
+        />
+
+        {/* Monogram — embossed look via layered text */}
+        {/* Shadow layer */}
         <text
-          x="100"
-          y="108"
+          x="101" y="110"
           textAnchor="middle"
           fontFamily="var(--font-script), cursive"
           fontSize="36"
-          fill="rgba(250,248,245,0.85)"
-          filter="url(#emboss)"
+          fill="rgba(0,0,0,0.3)"
+        >
+          S &amp; T
+        </text>
+        {/* Highlight layer */}
+        <text
+          x="99" y="108"
+          textAnchor="middle"
+          fontFamily="var(--font-script), cursive"
+          fontSize="36"
+          fill="rgba(255,255,255,0.5)"
+        >
+          S &amp; T
+        </text>
+        {/* Main text */}
+        <text
+          x="100" y="109"
+          textAnchor="middle"
+          fontFamily="var(--font-script), cursive"
+          fontSize="36"
+          fill="rgba(250,245,230,0.75)"
         >
           S &amp; T
         </text>
