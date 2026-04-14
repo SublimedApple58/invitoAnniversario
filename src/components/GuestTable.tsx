@@ -6,7 +6,6 @@ interface Invitation {
   id: number;
   code: string;
   guests: Guest[];
-  gender: string;
   response: string | null;
   respondedAt: string | null;
   createdAt: string;

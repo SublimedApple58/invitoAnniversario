@@ -24,7 +24,6 @@ export default async function InvitePage({
     <main className="min-h-dvh bg-background">
       <Envelope
         guests={invitation.guests}
-        gender={invitation.gender}
         code={invitation.code}
         currentResponse={invitation.response}
       />

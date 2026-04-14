@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { guests, gender } = await req.json();
+  const { guests } = await req.json();
 
   if (!Array.isArray(guests) || guests.length === 0) {
     return NextResponse.json({ error: "guests array is required" }, { status: 400 });
@@ -31,17 +31,16 @@ export async function POST(req: NextRequest) {
     if (!g.firstName?.trim() || !g.lastName?.trim()) {
       return NextResponse.json({ error: "Each guest needs firstName and lastName" }, { status: 400 });
     }
-  }
-
-  if (!["M", "F"].includes(gender)) {
-    return NextResponse.json({ error: "gender must be M or F" }, { status: 400 });
+    if (!["M", "F"].includes(g.gender)) {
+      return NextResponse.json({ error: "Each guest needs gender (M or F)" }, { status: 400 });
+    }
   }
 
   const code = nanoid(10);
 
   const [invitation] = await db
     .insert(invitations)
-    .values({ code, guests, gender })
+    .values({ code, guests })
     .returning();
 
   return NextResponse.json(invitation, { status: 201 });

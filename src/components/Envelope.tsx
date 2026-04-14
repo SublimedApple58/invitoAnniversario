@@ -8,12 +8,11 @@ import type { Guest } from "@/db/schema";
 
 interface EnvelopeProps {
   guests: Guest[];
-  gender: string;
   code: string;
   currentResponse: string | null;
 }
 
-export default function Envelope({ guests, gender, code, currentResponse }: EnvelopeProps) {
+export default function Envelope({ guests, code, currentResponse }: EnvelopeProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -28,7 +27,6 @@ export default function Envelope({ guests, gender, code, currentResponse }: Enve
           >
             {/* Envelope */}
             <div className="relative w-72 h-48 sm:w-80 sm:h-52">
-              {/* Envelope body */}
               <div
                 className="absolute inset-0 rounded-sm"
                 style={{
@@ -36,8 +34,6 @@ export default function Envelope({ guests, gender, code, currentResponse }: Enve
                   boxShadow: "0 8px 30px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2)",
                 }}
               />
-
-              {/* Envelope flap (triangle) */}
               <div
                 className="absolute -top-0.5 left-0 right-0"
                 style={{
@@ -47,23 +43,18 @@ export default function Envelope({ guests, gender, code, currentResponse }: Enve
                   borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
                 }}
               />
-
-              {/* Inner shadow for depth */}
               <div
                 className="absolute inset-0 rounded-sm"
                 style={{
-                  background:
-                    "linear-gradient(0deg, transparent 60%, rgba(0,0,0,0.03) 100%)",
+                  background: "linear-gradient(0deg, transparent 60%, rgba(0,0,0,0.03) 100%)",
                 }}
               />
             </div>
 
-            {/* Wax seal positioned on envelope */}
             <div className="-mt-12 z-10">
               <WaxSeal onClick={() => setIsOpen(true)} />
             </div>
 
-            {/* "Tocca per aprire" text */}
             <motion.p
               className="mt-6 font-body text-cream/60 text-xs tracking-[0.3em] uppercase"
               animate={{ opacity: [0.4, 0.8, 0.4] }}
@@ -82,7 +73,6 @@ export default function Envelope({ guests, gender, code, currentResponse }: Enve
           >
             <InvitationCard
               guests={guests}
-              gender={gender}
               code={code}
               currentResponse={currentResponse}
             />

@@ -6,28 +6,52 @@ import type { Guest } from "@/db/schema";
 
 interface InvitationCardProps {
   guests: Guest[];
-  gender: string;
   code: string;
   currentResponse: string | null;
 }
 
-function getGreeting(gender: string, count: number) {
-  if (count === 1) return gender === "F" ? "Cara" : "Caro";
-  return gender === "F" ? "Care" : "Cari";
+function getGreeting(guests: Guest[]) {
+  if (guests.length === 1) {
+    return guests[0].gender === "F" ? "Cara" : "Caro";
+  }
+  const allFemale = guests.every((g) => g.gender === "F");
+  return allFemale ? "Care" : "Cari";
 }
 
-function formatGuestNames(guests: Guest[]) {
-  return guests.map((g) => `${g.firstName} ${g.lastName}`);
+/**
+ * Groups guests by last name and formats them.
+ * Same surname: "Marco e Giulia Rossi"
+ * Different surnames: separate lines
+ */
+function formatGuestLines(guests: Guest[]): string[] {
+  const groups = new Map<string, string[]>();
+  const order: string[] = [];
+
+  for (const g of guests) {
+    if (!groups.has(g.lastName)) {
+      groups.set(g.lastName, []);
+      order.push(g.lastName);
+    }
+    groups.get(g.lastName)!.push(g.firstName);
+  }
+
+  return order.map((lastName) => {
+    const firstNames = groups.get(lastName)!;
+    const joined =
+      firstNames.length === 1
+        ? firstNames[0]
+        : firstNames.slice(0, -1).join(", ") + " e " + firstNames[firstNames.length - 1];
+    return `${joined} ${lastName}`;
+  });
 }
 
 export default function InvitationCard({
   guests,
-  gender,
   code,
   currentResponse,
 }: InvitationCardProps) {
-  const greeting = getGreeting(gender, guests.length);
-  const names = formatGuestNames(guests);
+  const greeting = getGreeting(guests);
+  const nameLines = formatGuestLines(guests);
   const isSingular = guests.length === 1;
 
   return (
@@ -54,9 +78,9 @@ export default function InvitationCard({
         <p className="font-body text-ink-light text-sm tracking-wider text-center uppercase mb-1">
           {greeting}
         </p>
-        {names.map((name, i) => (
+        {nameLines.map((line, i) => (
           <p key={i} className="font-serif text-ink text-2xl text-center italic">
-            {name}
+            {line}
           </p>
         ))}
 
