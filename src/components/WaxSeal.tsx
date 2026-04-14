@@ -43,11 +43,10 @@ export default function WaxSeal({ onClick }: { onClick: () => void }) {
       {/* Monogram */}
       <div className="absolute inset-0 flex items-center justify-center">
         <span
-          className="font-serif text-lg tracking-wider"
+          className="font-serif text-xl"
           style={{
             color: "#faf8f5",
             textShadow: "0 1px 2px rgba(0,0,0,0.4)",
-            fontStyle: "italic",
           }}
         >
           S & T

@@ -10,14 +10,14 @@
   --color-gold-dark: #a8893d;
   --color-ink: #2c2c2c;
   --color-ink-light: #4a4a4a;
-  --font-serif: var(--font-playfair);
-  --font-body: var(--font-cormorant);
+  --font-serif: var(--font-script);
+  --font-body: var(--font-montserrat);
 }
 
 body {
   background: var(--color-background);
   color: var(--color-foreground);
-  font-family: var(--font-body), Georgia, serif;
+  font-family: var(--font-body), sans-serif;
 }
 
 /* Black lace border */

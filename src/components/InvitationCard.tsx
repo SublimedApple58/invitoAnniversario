@@ -76,7 +76,7 @@ export default function InvitationCard({
           {greeting}
         </p>
         {nameLines.map((line, i) => (
-          <p key={i} className="font-serif text-ink text-2xl text-center italic">
+          <p key={i} className="font-serif text-ink text-3xl text-center">
             {line}
           </p>
         ))}
@@ -85,7 +85,7 @@ export default function InvitationCard({
         <div className="h-px w-16 bg-ink/10 mx-auto my-6" />
 
         {/* Invitation text */}
-        <p className="font-serif text-ink text-center text-lg italic mb-2">
+        <p className="font-serif text-ink text-center text-2xl mb-2">
           Serena &amp; Tiziano
         </p>
         <p className="font-body text-ink-light text-center text-sm leading-relaxed uppercase tracking-wider mb-1">
