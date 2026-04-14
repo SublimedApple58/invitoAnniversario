@@ -59,13 +59,10 @@ export default function InvitationCard({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, delay: 0.3 }}
-      className="w-full max-w-sm mx-auto"
+      className="w-full mx-auto"
     >
       <div
-        className="relative bg-cream rounded-sm px-8 py-10 lace-border"
-        style={{
-          boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2)",
-        }}
+        className="relative bg-cream min-h-dvh px-8 py-10 lace-border flex flex-col justify-center"
       >
         {/* Top decorative line */}
         <div className="flex items-center justify-center mb-6">
