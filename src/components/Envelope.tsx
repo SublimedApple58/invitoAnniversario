@@ -16,7 +16,7 @@ export default function Envelope({ guests, code, currentResponse }: EnvelopeProp
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-dvh px-4 py-8">
+    <div className="relative flex flex-col items-center justify-center min-h-dvh">
       <AnimatePresence mode="wait">
         {!isOpen ? (
           <motion.div
