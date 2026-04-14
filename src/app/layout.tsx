@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat, Great_Vibes } from "next/font/google";
+import { Montserrat, Pinyon_Script } from "next/font/google";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -9,7 +9,7 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-const greatVibes = Great_Vibes({
+const pinyonScript = Pinyon_Script({
   variable: "--font-script",
   subsets: ["latin"],
   weight: "400",
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="it"
-      className={`${montserrat.variable} ${greatVibes.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${pinyonScript.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
