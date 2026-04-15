@@ -111,17 +111,20 @@ export default function InvitationCard({
         {/* Time and Location */}
         <div className="text-center mb-4">
           <p className="font-body text-ink text-sm uppercase tracking-wider">
-            ore 19:30
+            ore 20:00
           </p>
-          <p className="font-body text-ink-light text-xs tracking-wider mt-2 uppercase">
-            Luogo da confermare
+          <p className="font-body text-ink text-sm tracking-wider mt-3 uppercase">
+            Lido Marisella
+          </p>
+          <p className="font-body text-ink-light text-xs tracking-wider mt-1 uppercase">
+            Lungomare Roma, 3 — Roseto degli Abruzzi
           </p>
         </div>
 
         {/* Google Maps button */}
         <div className="flex justify-center mb-2">
           <a
-            href="https://maps.google.com"
+            href="https://maps.google.com/maps/search/Lido+Marisella+Lungomare+Roma+3+Roseto+degli+Abruzzi"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-xs text-gold tracking-wider uppercase
@@ -148,6 +151,22 @@ export default function InvitationCard({
             </svg>
             Apri in Google Maps
           </a>
+        </div>
+
+        {/* Dress code */}
+        <div className="flex items-center justify-center my-6">
+          <div className="h-px w-8 bg-ink/10" />
+          <span className="mx-3 text-ink/30 text-xs tracking-[0.3em]">&#10043;</span>
+          <div className="h-px w-8 bg-ink/10" />
+        </div>
+
+        <div className="text-center mb-2">
+          <p className="font-body text-ink-light text-xs tracking-[0.3em] uppercase mb-2">
+            Dress code
+          </p>
+          <p className="font-body text-ink text-lg tracking-[0.2em] uppercase font-semibold">
+            Total Black
+          </p>
         </div>
 
         {/* Divider before RSVP */}
