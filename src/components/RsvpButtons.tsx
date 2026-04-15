@@ -45,8 +45,8 @@ export default function RsvpButtons({ code, currentResponse, isSingular }: RsvpB
                 <p className="font-body text-xl text-gold uppercase tracking-wider mb-2">Grazie!</p>
                 <p className="text-ink-light text-sm uppercase tracking-wider">
                   {isSingular
-                    ? "Non vediamo l'ora di festeggiare insieme a te."
-                    : "Non vediamo l'ora di festeggiare insieme a voi."}
+                    ? "Non vediamo l'ora di averti con noi!"
+                    : "Non vediamo l'ora di avervi con noi!"}
                 </p>
               </>
             ) : (
@@ -56,8 +56,8 @@ export default function RsvpButtons({ code, currentResponse, isSingular }: RsvpB
                 </p>
                 <p className="text-ink-light text-sm uppercase tracking-wider">
                   {isSingular
-                    ? "Grazie per averci fatto sapere. Ti penseremo."
-                    : "Grazie per averci fatto sapere. Vi penseremo."}
+                    ? "Peccato, ci mancherai!"
+                    : "Peccato, ci mancherete!"}
                 </p>
               </>
             )}
@@ -77,7 +77,7 @@ export default function RsvpButtons({ code, currentResponse, isSingular }: RsvpB
                 bg-gold text-cream transition-all duration-300
                 hover:bg-gold-light disabled:opacity-50 cursor-pointer"
             >
-              {isSingular ? "Con gioia, accetto" : "Con gioia, accettiamo"}
+              {isSingular ? "Ci sarò!" : "Ci saremo!"}
             </button>
             <button
               onClick={() => handleRsvp("no")}
@@ -86,7 +86,7 @@ export default function RsvpButtons({ code, currentResponse, isSingular }: RsvpB
                 border border-ink/20 text-ink-light transition-all duration-300
                 hover:border-gold/40 hover:text-ink disabled:opacity-50 cursor-pointer"
             >
-              {isSingular ? "Mi dispiace, non posso" : "Ci dispiace, non possiamo"}
+              {isSingular ? "Purtroppo non posso" : "Purtroppo non possiamo"}
             </button>
           </motion.div>
         )}

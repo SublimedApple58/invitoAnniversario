@@ -63,7 +63,7 @@ export default function InvitationCard({
       className="w-full mx-auto"
     >
       <div
-        className="relative bg-cream min-h-dvh px-10 py-12 flex flex-col justify-center overflow-hidden"
+        className="relative bg-cream min-h-dvh px-14 py-16 flex flex-col justify-center overflow-hidden"
       >
         <LaceBorder />
         {/* Top decorative line */}
@@ -91,10 +91,10 @@ export default function InvitationCard({
           Serena &amp; Tiziano
         </p>
         <p className="font-body text-ink-light text-center text-sm leading-relaxed uppercase tracking-wider mb-1">
-          {isSingular ? "ti invitano a festeggiare" : "vi invitano a festeggiare"}
+          {isSingular ? "ti invitano a festeggiare con loro" : "vi invitano a festeggiare con loro"}
         </p>
         <p className="font-body text-ink-light text-center text-sm leading-relaxed uppercase tracking-wider mb-6">
-          il loro 1&#176; anniversario di matrimonio
+          il primo anno da sposati!
         </p>
 
         {/* Date */}
