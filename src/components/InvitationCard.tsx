@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import RsvpButtons from "./RsvpButtons";
+import LaceBorder from "./LaceBorder";
 import type { Guest } from "@/db/schema";
 
 interface InvitationCardProps {
@@ -62,8 +63,9 @@ export default function InvitationCard({
       className="w-full mx-auto"
     >
       <div
-        className="relative bg-cream min-h-dvh px-8 py-10 lace-border flex flex-col justify-center"
+        className="relative bg-cream min-h-dvh px-10 py-12 flex flex-col justify-center overflow-hidden"
       >
+        <LaceBorder />
         {/* Top decorative line */}
         <div className="flex items-center justify-center mb-6">
           <div className="h-px w-12 bg-ink/10" />

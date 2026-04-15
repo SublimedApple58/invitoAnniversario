@@ -24,36 +24,6 @@ body {
   font-family: var(--font-body), sans-serif;
 }
 
-/* Black lace border */
-.lace-border {
-  position: relative;
-  overflow: hidden;
-}
-
-.lace-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border: 2px solid rgba(0, 0, 0, 0.15);
-  background:
-    /* top scallop */
-    radial-gradient(circle at 50% 0%, transparent 4px, rgba(0,0,0,0.06) 4px, rgba(0,0,0,0.06) 5px, transparent 5px) repeat-x top center / 14px 8px,
-    /* bottom scallop */
-    radial-gradient(circle at 50% 100%, transparent 4px, rgba(0,0,0,0.06) 4px, rgba(0,0,0,0.06) 5px, transparent 5px) repeat-x bottom center / 14px 8px,
-    /* left scallop */
-    radial-gradient(circle at 0% 50%, transparent 4px, rgba(0,0,0,0.06) 4px, rgba(0,0,0,0.06) 5px, transparent 5px) repeat-y center left / 8px 14px,
-    /* right scallop */
-    radial-gradient(circle at 100% 50%, transparent 4px, rgba(0,0,0,0.06) 4px, rgba(0,0,0,0.06) 5px, transparent 5px) repeat-y center right / 8px 14px;
-}
-
-.lace-border::after {
-  content: "";
-  position: absolute;
-  inset: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  pointer-events: none;
-}
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
