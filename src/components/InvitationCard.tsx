@@ -161,6 +161,11 @@ export default function InvitationCard({
         </div>
 
         <div className="text-center mb-2">
+          <p className="font-body text-ink-light text-center text-xs leading-relaxed tracking-wider mb-3">
+            {isSingular
+              ? "Se possibile ti chiediamo di seguire il dress code"
+              : "Se possibile vi chiediamo di seguire il dress code"}
+          </p>
           <p className="font-body text-ink-light text-xs tracking-[0.3em] uppercase mb-2">
             Dress code
           </p>

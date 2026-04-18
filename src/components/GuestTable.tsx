@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { Guest } from "@/db/schema";
 
 interface Invitation {
@@ -17,6 +18,32 @@ interface GuestTableProps {
 
 function formatNames(guests: Guest[]) {
   return guests.map((g) => `${g.firstName} ${g.lastName}`).join(", ");
+}
+
+function CopyLinkButton({ code }: { code: string }) {
+  const [copied, setCopied] = useState(false);
+  const url = typeof window !== "undefined"
+    ? `${window.location.origin}/invite/${code}`
+    : `/invite/${code}`;
+
+  const copy = async () => {
+    await navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <button
+      onClick={copy}
+      className="text-xs text-gold/70 hover:text-gold transition-colors cursor-pointer flex items-center gap-1.5"
+    >
+      <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+          d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+      </svg>
+      {copied ? "Copiato!" : "Copia link"}
+    </button>
+  );
 }
 
 export default function GuestTable({ invitations }: GuestTableProps) {
@@ -91,7 +118,7 @@ export default function GuestTable({ invitations }: GuestTableProps) {
                 <tr key={inv.id} className="border-b border-white/5">
                   <td className="py-3 text-cream">{formatNames(inv.guests)}</td>
                   <td className="py-3">
-                    <code className="text-xs text-gold/70">/invite/{inv.code}</code>
+                    <CopyLinkButton code={inv.code} />
                   </td>
                   <td className="py-3">{statusBadge(inv.response)}</td>
                   <td className="py-3 text-cream/40 text-xs">
