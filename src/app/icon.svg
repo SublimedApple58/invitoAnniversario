@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="w" cx="38%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#e0c872"/>
+      <stop offset="25%" stop-color="#d4b85c"/>
+      <stop offset="50%" stop-color="#c9a84c"/>
+      <stop offset="75%" stop-color="#b09040"/>
+      <stop offset="100%" stop-color="#8a7030"/>
+    </radialGradient>
+    <radialGradient id="h" cx="35%" cy="28%" r="30%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
+      <stop offset="60%" stop-color="rgba(255,255,255,0.08)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </radialGradient>
+    <radialGradient id="s" cx="50%" cy="50%" r="50%">
+      <stop offset="70%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="90%" stop-color="rgba(0,0,0,0.12)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.25)"/>
+    </radialGradient>
+  </defs>
+  <path d="M100,10 C118,8 134,13 148,22 C158,17 167,23 172,32 C182,40 189,54 191,70 C195,77 197,87 195,100 C197,112 195,123 189,133 C191,143 185,154 175,162 C169,172 157,180 145,184 C137,190 125,194 113,194 C101,196 89,194 79,190 C67,192 56,186 46,178 C36,172 28,162 22,150 C16,140 12,128 10,116 C6,106 6,94 8,82 C8,70 12,58 20,48 C24,38 32,28 44,22 C54,14 68,10 82,10 Z" fill="url(#w)"/>
+  <path d="M100,10 C118,8 134,13 148,22 C158,17 167,23 172,32 C182,40 189,54 191,70 C195,77 197,87 195,100 C197,112 195,123 189,133 C191,143 185,154 175,162 C169,172 157,180 145,184 C137,190 125,194 113,194 C101,196 89,194 79,190 C67,192 56,186 46,178 C36,172 28,162 22,150 C16,140 12,128 10,116 C6,106 6,94 8,82 C8,70 12,58 20,48 C24,38 32,28 44,22 C54,14 68,10 82,10 Z" fill="url(#h)"/>
+  <path d="M100,10 C118,8 134,13 148,22 C158,17 167,23 172,32 C182,40 189,54 191,70 C195,77 197,87 195,100 C197,112 195,123 189,133 C191,143 185,154 175,162 C169,172 157,180 145,184 C137,190 125,194 113,194 C101,196 89,194 79,190 C67,192 56,186 46,178 C36,172 28,162 22,150 C16,140 12,128 10,116 C6,106 6,94 8,82 C8,70 12,58 20,48 C24,38 32,28 44,22 C54,14 68,10 82,10 Z" fill="url(#s)"/>
+  <circle cx="100" cy="100" r="62" fill="none" stroke="rgba(0,0,0,0.18)" stroke-width="1.5"/>
+  <circle cx="100" cy="100" r="63" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+  <text x="101" y="110" text-anchor="middle" font-family="cursive" font-size="36" fill="rgba(0,0,0,0.3)">S &amp; T</text>
+  <text x="99" y="108" text-anchor="middle" font-family="cursive" font-size="36" fill="rgba(255,255,255,0.5)">S &amp; T</text>
+  <text x="100" y="109" text-anchor="middle" font-family="cursive" font-size="36" fill="rgba(250,245,230,0.75)">S &amp; T</text>
+</svg>

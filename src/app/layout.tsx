@@ -18,7 +18,12 @@ const alexBrush = Alex_Brush({
 
 export const metadata: Metadata = {
   title: "Serena & Tiziano — 1° Anniversario",
-  description: "Sei invitato a festeggiare il nostro primo anniversario di matrimonio",
+  description: "Sei invitato a cena per il nostro primo anniversario di matrimonio — 30 Maggio 2026",
+  openGraph: {
+    title: "Serena & Tiziano — 1° Anniversario",
+    description: "Sei invitato a cena per il nostro primo anniversario di matrimonio",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

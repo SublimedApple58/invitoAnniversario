@@ -111,7 +111,7 @@ export default function InvitationCard({
         {/* Time and Location */}
         <div className="text-center mb-4">
           <p className="font-body text-ink text-sm uppercase tracking-wider">
-            ore 20:00
+            ore 19:30
           </p>
           <p className="font-body text-ink text-sm tracking-wider mt-3 uppercase">
             Lido Marisella
