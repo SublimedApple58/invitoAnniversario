@@ -28,8 +28,8 @@ export async function POST(req: NextRequest) {
   }
 
   for (const g of guests) {
-    if (!g.firstName?.trim() || !g.lastName?.trim()) {
-      return NextResponse.json({ error: "Each guest needs firstName and lastName" }, { status: 400 });
+    if (!g.firstName?.trim()) {
+      return NextResponse.json({ error: "Each guest needs at least a firstName" }, { status: 400 });
     }
     if (!["M", "F"].includes(g.gender)) {
       return NextResponse.json({ error: "Each guest needs gender (M or F)" }, { status: 400 });

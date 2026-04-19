@@ -36,7 +36,7 @@ export default function AdminForm({ password, onCreated }: AdminFormProps) {
     setGuests((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const isValid = guests.every((g) => g.firstName.trim() && g.lastName.trim());
+  const isValid = guests.every((g) => g.firstName.trim());
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

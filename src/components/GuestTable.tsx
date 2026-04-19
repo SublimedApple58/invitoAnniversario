@@ -20,7 +20,7 @@ interface GuestTableProps {
 }
 
 function formatNames(guests: Guest[]) {
-  return guests.map((g) => `${g.firstName} ${g.lastName}`).join(", ");
+  return guests.map((g) => g.lastName ? `${g.firstName} ${g.lastName}` : g.firstName).join(", ");
 }
 
 function CopyLinkButton({ code }: { code: string }) {

@@ -42,7 +42,7 @@ function formatGuestLines(guests: Guest[]): string[] {
       firstNames.length === 1
         ? firstNames[0]
         : firstNames.slice(0, -1).join(", ") + " e " + firstNames[firstNames.length - 1];
-    return `${joined} ${lastName}`;
+    return lastName ? `${joined} ${lastName}` : joined;
   });
 }
 
