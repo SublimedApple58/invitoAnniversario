@@ -91,7 +91,7 @@ export default function InvitationCard({
           Serena &amp; Tiziano
         </p>
         <p className="font-body text-ink-light text-center text-sm leading-relaxed uppercase tracking-wider mb-1">
-          {isSingular ? "ti invitano a festeggiare con loro" : "vi invitano a festeggiare con loro"}
+          {isSingular ? "ti invitano a cena per" : "vi invitano a cena per"}
         </p>
         <p className="font-body text-ink-light text-center text-sm leading-relaxed uppercase tracking-wider mb-6">
           il primo anniversario di matrimonio!
