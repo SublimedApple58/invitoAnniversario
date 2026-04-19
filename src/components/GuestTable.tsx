@@ -15,6 +15,8 @@ interface Invitation {
 
 interface GuestTableProps {
   invitations: Invitation[];
+  password: string;
+  onDeleted: () => void;
 }
 
 function formatNames(guests: Guest[]) {
@@ -47,11 +49,48 @@ function CopyLinkButton({ code }: { code: string }) {
   );
 }
 
-export default function GuestTable({ invitations }: GuestTableProps) {
+type Filter = "all" | "yes" | "no" | "pending";
+
+export default function GuestTable({ invitations, password, onDeleted }: GuestTableProps) {
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState<Filter>("all");
+  const [deleting, setDeleting] = useState<number | null>(null);
+
   const total = invitations.length;
   const accepted = invitations.filter((i) => i.response === "yes").length;
   const declined = invitations.filter((i) => i.response === "no").length;
   const pending = invitations.filter((i) => !i.response).length;
+
+  const filtered = invitations.filter((inv) => {
+    const matchesSearch = search === "" ||
+      formatNames(inv.guests).toLowerCase().includes(search.toLowerCase());
+
+    const matchesFilter =
+      filter === "all" ||
+      (filter === "yes" && inv.response === "yes") ||
+      (filter === "no" && inv.response === "no") ||
+      (filter === "pending" && !inv.response);
+
+    return matchesSearch && matchesFilter;
+  });
+
+  const handleDelete = async (id: number) => {
+    if (!confirm("Sei sicuro di voler eliminare questo invito?")) return;
+    setDeleting(id);
+    try {
+      await fetch("/api/invitations", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-password": password,
+        },
+        body: JSON.stringify({ id }),
+      });
+      onDeleted();
+    } finally {
+      setDeleting(null);
+    }
+  };
 
   const statusBadge = (response: string | null) => {
     switch (response) {
@@ -76,6 +115,19 @@ export default function GuestTable({ invitations }: GuestTableProps) {
     }
   };
 
+  const filterBtn = (label: string, value: Filter, count: number) => (
+    <button
+      onClick={() => setFilter(filter === value ? "all" : value)}
+      className={`px-3 py-1.5 rounded text-xs transition-colors cursor-pointer ${
+        filter === value
+          ? "bg-gold text-background"
+          : "bg-white/5 text-cream/50 hover:bg-white/10"
+      }`}
+    >
+      {label} ({count})
+    </button>
+  );
+
   return (
     <div>
       {/* Counters */}
@@ -98,10 +150,31 @@ export default function GuestTable({ invitations }: GuestTableProps) {
         </div>
       </div>
 
+      {/* Search + Filters */}
+      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Cerca invitato..."
+          className="flex-1 px-4 py-2 bg-white/10 border border-white/20 rounded text-cream text-sm
+            placeholder:text-cream/40 focus:outline-none focus:border-gold/50"
+        />
+        <div className="flex gap-2">
+          {filterBtn("Confermati", "yes", accepted)}
+          {filterBtn("Rifiutati", "no", declined)}
+          {filterBtn("In attesa", "pending", pending)}
+        </div>
+      </div>
+
       {/* Table */}
       {invitations.length === 0 ? (
         <p className="text-cream/40 text-sm text-center py-8">
           Nessun invito creato ancora.
+        </p>
+      ) : filtered.length === 0 ? (
+        <p className="text-cream/40 text-sm text-center py-8">
+          Nessun risultato.
         </p>
       ) : (
         <div className="overflow-x-auto">
@@ -113,10 +186,11 @@ export default function GuestTable({ invitations }: GuestTableProps) {
                 <th className="pb-3 text-cream/60 font-normal">Stato</th>
                 <th className="pb-3 text-cream/60 font-normal">Note alimentari</th>
                 <th className="pb-3 text-cream/60 font-normal">Data risposta</th>
+                <th className="pb-3 text-cream/60 font-normal"></th>
               </tr>
             </thead>
             <tbody>
-              {invitations.map((inv) => (
+              {filtered.map((inv) => (
                 <tr key={inv.id} className="border-b border-white/5">
                   <td className="py-3 text-cream">{formatNames(inv.guests)}</td>
                   <td className="py-3">
@@ -136,6 +210,19 @@ export default function GuestTable({ invitations }: GuestTableProps) {
                           minute: "2-digit",
                         })
                       : "—"}
+                  </td>
+                  <td className="py-3">
+                    <button
+                      onClick={() => handleDelete(inv.id)}
+                      disabled={deleting === inv.id}
+                      className="text-red-400/40 hover:text-red-400 transition-colors cursor-pointer disabled:opacity-30"
+                      title="Elimina invito"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
                   </td>
                 </tr>
               ))}

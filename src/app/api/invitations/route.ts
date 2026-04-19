@@ -45,3 +45,21 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json(invitation, { status: 201 });
 }
+
+export async function DELETE(req: NextRequest) {
+  if (!checkAdmin(req)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id } = await req.json();
+
+  if (!id) {
+    return NextResponse.json({ error: "id is required" }, { status: 400 });
+  }
+
+  const { eq } = await import("drizzle-orm");
+
+  await db.delete(invitations).where(eq(invitations.id, id));
+
+  return NextResponse.json({ ok: true });
+}

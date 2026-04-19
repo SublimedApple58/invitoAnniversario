@@ -73,7 +73,7 @@ export default function AdminPage() {
         </h1>
 
         <AdminForm password={password} onCreated={fetchInvitations} />
-        <GuestTable invitations={invitations} />
+        <GuestTable invitations={invitations} password={password} onDeleted={fetchInvitations} />
       </div>
     </main>
   );
