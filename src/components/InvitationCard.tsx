@@ -94,7 +94,7 @@ export default function InvitationCard({
           {isSingular ? "ti invitano a festeggiare con loro" : "vi invitano a festeggiare con loro"}
         </p>
         <p className="font-body text-ink-light text-center text-sm leading-relaxed uppercase tracking-wider mb-6">
-          il primo anno da sposati!
+          il primo anniversario di matrimonio!
         </p>
 
         {/* Date */}
