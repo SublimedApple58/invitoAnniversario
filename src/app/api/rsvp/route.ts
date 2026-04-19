@@ -4,7 +4,7 @@ import { invitations } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function POST(req: NextRequest) {
-  const { code, response } = await req.json();
+  const { code, response, dietaryNotes } = await req.json();
 
   if (!code || !response || !["yes", "no"].includes(response)) {
     return NextResponse.json(
@@ -24,7 +24,11 @@ export async function POST(req: NextRequest) {
 
   const [updated] = await db
     .update(invitations)
-    .set({ response, respondedAt: new Date() })
+    .set({
+      response,
+      dietaryNotes: dietaryNotes?.trim() || null,
+      respondedAt: new Date(),
+    })
     .where(eq(invitations.code, code))
     .returning();
 

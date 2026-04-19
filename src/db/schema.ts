@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar, jsonb, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, serial, varchar, text, jsonb, timestamp } from "drizzle-orm/pg-core";
 
 export type Guest = {
   firstName: string;
@@ -11,6 +11,7 @@ export const invitations = pgTable("invitations", {
   code: varchar("code", { length: 12 }).unique().notNull(),
   guests: jsonb("guests").$type<Guest[]>().notNull(),
   response: varchar("response", { length: 3 }),
+  dietaryNotes: text("dietary_notes"),
   respondedAt: timestamp("responded_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

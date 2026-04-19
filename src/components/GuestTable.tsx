@@ -8,6 +8,7 @@ interface Invitation {
   code: string;
   guests: Guest[];
   response: string | null;
+  dietaryNotes: string | null;
   respondedAt: string | null;
   createdAt: string;
 }
@@ -110,6 +111,7 @@ export default function GuestTable({ invitations }: GuestTableProps) {
                 <th className="pb-3 text-cream/60 font-normal">Ospiti</th>
                 <th className="pb-3 text-cream/60 font-normal">Link</th>
                 <th className="pb-3 text-cream/60 font-normal">Stato</th>
+                <th className="pb-3 text-cream/60 font-normal">Note alimentari</th>
                 <th className="pb-3 text-cream/60 font-normal">Data risposta</th>
               </tr>
             </thead>
@@ -121,6 +123,9 @@ export default function GuestTable({ invitations }: GuestTableProps) {
                     <CopyLinkButton code={inv.code} />
                   </td>
                   <td className="py-3">{statusBadge(inv.response)}</td>
+                  <td className="py-3 text-cream/50 text-xs max-w-[150px]">
+                    {inv.dietaryNotes || "—"}
+                  </td>
                   <td className="py-3 text-cream/40 text-xs">
                     {inv.respondedAt
                       ? new Date(inv.respondedAt).toLocaleDateString("it-IT", {
